@@ -29,6 +29,19 @@
 	<properties>
 		<java.version>26</java.version>
 	</properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.a2aproject.sdk</groupId>
+        <artifactId>a2a-java-sdk-bom</artifactId>
+        <version>1.1.0.Final</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -72,6 +85,12 @@
       <artifactId>quarkus-jsonp</artifactId>
       <version>3.37.2</version>
       <scope>compile</scope>
+    </dependency>
+
+    <!-- Core client -->
+    <dependency>
+      <groupId>org.a2aproject.sdk</groupId>
+      <artifactId>a2a-java-sdk-client</artifactId>
     </dependency>
 
 	</dependencies>
