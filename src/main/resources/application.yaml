@@ -1,0 +1,17 @@
+server:
+  port: ${PORT:5000}
+
+spring:
+  application:
+    name: a2telegram
+
+logging:
+  pattern:
+    console: "%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n"
+
+telegram:
+  bot:
+    name: ${TELEGRAM_BOT_NAME}
+    token: ${TELEGRAM_BOT_TOKEN}
+    admin: ${TELEGRAM_BOT_ADMIN}
+
