@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.generics.TelegramClient;
 
 @Component
 public class BotMain {
@@ -21,36 +22,39 @@ public class BotMain {
   private Logger logger = LoggerFactory.getLogger(BotMain.class);
 
   @Value("${telegram.bot.token}")
-  private String token;
+  private String botToken;
+
+  @Value("${telegram.bot.name}")
+  private String botName;
 
   @Value("${telegram.bot.admin}")
   private String admin;
 
   @Autowired
-  private BotMessageProcessor messageProcessor;
+  private TelegramClient telegramClient;
 
-  private TelegramBotsLongPollingApplication bot = null;
-
-  private AtomicBoolean started = new AtomicBoolean(false);
+  private TelegramBotsLongPollingApplication app = null;
+  private A2ABridgeBot bot = null;
 
   @EventListener(ApplicationReadyEvent.class)
-  public void startup() {
-
-    if (started.getAcquire())
-      return;
-
+  public void altStartup() {
     logger.info("Starting Telegram long poll");
-    bot = new TelegramBotsLongPollingApplication();
+    app = new TelegramBotsLongPollingApplication();
+
+    bot = new A2ABridgeBot(botName, Long.parseLong(admin), telegramClient);
+    bot.onRegister();
+
     try {
-      bot.registerBot(token, messageProcessor);
+      app.registerBot(botToken, bot);
       SendMessage msg = SendMessage.builder()
           .chatId(admin)
           .text("Bot starting on %s".formatted(new Date()))
           .build();
-      messageProcessor.send(msg);
+      telegramClient.execute(msg);
     } catch (TelegramApiException ex) {
       logger.error("Fail to register bot message processor", ex);
     }
+
   }
 
   @EventListener(ContextClosedEvent.class)
@@ -61,7 +65,7 @@ public class BotMain {
           .chatId(admin)
           .text("Bot stopping on %s".formatted(new Date()))
           .build();
-      messageProcessor.send(msg);
+      telegramClient.execute(msg);
 
       bot.close();
     } catch (Exception ex) {
