@@ -79,6 +79,14 @@
       <artifactId>telegrambots-client</artifactId>
       <version>10.1.1</version>
     </dependency>
+    <!-- Source: https://mvnrepository.com/artifact/org.telegram/telegrambots-abilities -->
+    <dependency>
+      <groupId>org.telegram</groupId>
+      <artifactId>telegrambots-abilities</artifactId>
+      <version>10.0.0</version>
+      <scope>compile</scope>
+    </dependency>
+
     <!-- Source: https://mvnrepository.com/artifact/io.quarkus/quarkus-jsonp -->
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -91,6 +99,13 @@
     <dependency>
       <groupId>org.a2aproject.sdk</groupId>
       <artifactId>a2a-java-sdk-client</artifactId>
+    </dependency>
+    <!-- Source: https://mvnrepository.com/artifact/com.github.f4b6a3/ulid-creator -->
+    <dependency>
+      <groupId>com.github.f4b6a3</groupId>
+      <artifactId>ulid-creator</artifactId>
+      <version>5.2.4</version>
+      <scope>compile</scope>
     </dependency>
 
 	</dependencies>

@@ -14,4 +14,6 @@ telegram:
     name: ${TELEGRAM_BOT_NAME}
     token: ${TELEGRAM_BOT_TOKEN}
     admin: ${TELEGRAM_BOT_ADMIN}
-
+agent:
+  a2a:
+    endpoint: ${A2A_ENDPOINT}
